@@ -22,11 +22,10 @@ export default PrimaryButton;
 const styles = StyleSheet.create({
   buttonOuterContainer: {
     borderRadius: 28,
-    margin: 4,
+    marginHorizontal: 4,
     overflow: "hidden",
   },
   buttonInnerContainer: {
-    borderRadius: 28,
     backgroundColor: "#72063c",
     paddingVertical: 8,
     paddingHorizontal: 16,
