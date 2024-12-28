@@ -1,0 +1,28 @@
+{
+  "colorInfo.languages": [
+    {
+      "selector": "css",
+      "colors": "css"
+    },
+    {
+      "selector": "sass",
+      "colors": "css"
+    },
+    {
+      "selector": "scss",
+      "colors": "css"
+    },
+    {
+      "selector": "less",
+      "colors": "css"
+    },
+    {
+      "selector": "html",
+      "colors": "css"
+    },
+    {
+      "selector": "js",
+      "colors": "css"
+    }
+  ]
+}
