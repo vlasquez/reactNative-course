@@ -1,13 +1,28 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import PrimaryButton from "../components/ui/PrimaryButton";
+import Title from "../components/ui/Title";
+import Colors from "../design-system/colors";
 
 function GameOverScreen({ roundsNumber, userNumber, onRestart }) {
   return (
-    <View style={styles.container}>
-      <Text>Game Over!</Text>
-      <Text>Number of rounds: {roundsNumber}</Text>
-      <Text>Number was: {userNumber}</Text>
-      <PrimaryButton onPress={onRestart}>Restart Game</PrimaryButton>
+    <View style={styles.rootContainer}>
+      <View style={styles.container}>
+        <Title>Game Over!</Title>
+        <View style={styles.imageContainer}>
+          <Image
+            imageStyle={styles.image}
+            soruce={require("../assets/images/success.png")}
+          />
+        </View>
+        <Text>Number of rounds: {roundsNumber}</Text>
+        <Text>Number was: {userNumber}</Text>
+        <PrimaryButton onPress={onRestart}>Restart Game</PrimaryButton>
+      </View>
+      <View>
+        <Text style={styles.summaryText}>
+          <Text style={styles.highlight}>Number of rounds:</Text> {roundsNumber}
+        </Text>
+      </View>
     </View>
   );
 }
@@ -15,10 +30,31 @@ function GameOverScreen({ roundsNumber, userNumber, onRestart }) {
 export default GameOverScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  rootContainer: {
     flex: 1,
     padding: 24,
-    justifyContent: "center",
-    alignItems: "center",
+  },
+  imageContainer: {
+    width: 300,
+    height: 300,
+    borderRadius: 150,
+    borderWidth: 3,
+    borderColor: Colors.primary800,
+    overflow: "hidden",
+    margin: 36,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+  summaryText: {
+    fontFamily: "open-sans",
+    fontSize: 24,
+    textAlign: "center",
+    marginBottom: 24,
+  },
+  highlight: {
+    fontFamily: "open-sans-bold",
+    color: Colors.primary500,
   },
 });
