@@ -6,6 +6,7 @@ import AppLoading from "expo-app-loading";
 import StartGameScreen from "./screen/StartGameScreen";
 import GameScreen from "./screen/GameScreen";
 import GameOverScreen from "./screen/GameOverScreen";
+import { StatusBar } from "expo-status-bar";
 
 import Colors from "./design-system/colors";
 
@@ -56,19 +57,22 @@ export default function App() {
   }
 
   return (
-    <LinearGradient
-      colors={[Colors.primary700, Colors.accent500]}
-      style={styles.container}
-    >
-      <ImageBackground
-        source={require("./assets/images/background.png")}
-        resizeMode="cover"
+    <>
+      <StatusBar style="light" />
+      <LinearGradient
+        colors={[Colors.primary700, Colors.accent500]}
         style={styles.container}
-        imageStyle={styles.backgroundImage}
       >
-        <SafeAreaView style={styles.container}>{screen}</SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+        <ImageBackground
+          source={require("./assets/images/background.png")}
+          resizeMode="cover"
+          style={styles.container}
+          imageStyle={styles.backgroundImage}
+        >
+          <SafeAreaView style={styles.container}>{screen}</SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </>
   );
 }
 
