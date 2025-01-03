@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { useState, useEffect } from "react";
@@ -18,18 +18,24 @@ function generateRandomBetween(min, max, exclude) {
   }
 }
 
-function GameScreen({ userNumber, onGameOver }) {
-  let minBoundary = 1;
-  let maxBoundary = 100;
+let minBoundary = 1;
+let maxBoundary = 100;
 
+function GameScreen({ userNumber, onGameOver }) {
   const initialGuess = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [rounds, setRounds] = useState([initialGuess]);
 
   useEffect(() => {
     if (currentGuess === userNumber) {
       onGameOver();
     }
   }, [currentGuess, userNumber, onGameOver]);
+
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
+  }, []);
 
   function nextGuessHandler(direction) {
     if (
@@ -43,18 +49,8 @@ function GameScreen({ userNumber, onGameOver }) {
     }
     if (direction === "lower") {
       maxBoundary = currentGuess;
-      const newRndNumber = generateRandomBetween(
-        minBoundary,
-        maxBoundary,
-        currentGuess
-      );
     } else {
       minBoundary = currentGuess + 1;
-      const newRndNumber = generateRandomBetween(
-        minBoundary,
-        maxBoundary,
-        currentGuess
-      );
     }
     const newRndNumber = generateRandomBetween(
       minBoundary,
@@ -62,6 +58,7 @@ function GameScreen({ userNumber, onGameOver }) {
       currentGuess
     );
     setCurrentGuess(newRndNumber);
+    setRounds((prevGuessRounds) => [newRndNumber, ...prevGuessRounds]);
   }
 
   return (
@@ -84,10 +81,13 @@ function GameScreen({ userNumber, onGameOver }) {
             </PrimaryButton>
           </View>
         </View>
-        <View>
-          <Text>LOG ROUNDS</Text>
-        </View>
       </Card>
+      <View>
+        <FlatList
+          data={rounds}
+          renderItem={(itemData) => <Text>{itemData.item}</Text>}
+        ></FlatList>
+      </View>
     </View>
   );
 }

@@ -14,14 +14,13 @@ function GameOverScreen({ roundsNumber, userNumber, onRestart }) {
             soruce={require("../assets/images/success.png")}
           />
         </View>
-        <Text>Number of rounds: {roundsNumber}</Text>
-        <Text>Number was: {userNumber}</Text>
-        <PrimaryButton onPress={onRestart}>Restart Game</PrimaryButton>
       </View>
       <View>
         <Text style={styles.summaryText}>
           <Text style={styles.highlight}>Number of rounds:</Text> {roundsNumber}
+          <Text style={styles.highlight}>Number was:</Text> {userNumber}
         </Text>
+        <PrimaryButton onPress={onRestart}>Restart Game</PrimaryButton>
       </View>
     </View>
   );
