@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  useWindowDimensions,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Title from "../components/ui/Title";
 import Colors from "../design-system/colors";
@@ -6,31 +14,51 @@ import Colors from "../design-system/colors";
 const deviceWidth = Dimensions.get("window").width;
 
 function GameOverScreen({ roundsNumber, userNumber, onRestart }) {
+  const { width, height } = useWindowDimensions();
+
+  let imageSize = 300;
+  if (width < 380) {
+    imageSize = 150;
+  }
+  if (height < 400) {
+    imageSize = 80;
+  }
+
+  const imageStyle = {
+    width: imageSize,
+    height: imageSize,
+    borderRadius: imageSize / 2,
+  };
+
   return (
-    <View style={styles.rootContainer}>
-      <View style={styles.container}>
+    <ScrollView style={styles.screen}>
+      <View style={styles.rootContainer}>
         <Title>Game Over!</Title>
-        <View style={styles.imageContainer}>
+        <View style={[styles.imageContainer, imageStyle]}>
           <Image
             styles={styles.image}
             source={require("../assets/images/success.png")}
           />
         </View>
+        <View>
+          <Text style={styles.summaryText}>
+            <Text style={styles.highlight}>Number of rounds:</Text>{" "}
+            {roundsNumber}
+            <Text style={styles.highlight}>Number was:</Text> {userNumber}
+          </Text>
+          <PrimaryButton onPress={onRestart}>Restart Game</PrimaryButton>
+        </View>
       </View>
-      <View>
-        <Text style={styles.summaryText}>
-          <Text style={styles.highlight}>Number of rounds:</Text> {roundsNumber}
-          <Text style={styles.highlight}>Number was:</Text> {userNumber}
-        </Text>
-        <PrimaryButton onPress={onRestart}>Restart Game</PrimaryButton>
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
 export default GameOverScreen;
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   rootContainer: {
     flex: 1,
     padding: 24,
